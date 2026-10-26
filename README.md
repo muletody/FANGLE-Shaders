@@ -2,7 +2,7 @@
 
 **FANGLE (First-ANGLE)** is a semi-realistic shader pack for Minecraft Java Edition, developed with mobile GPUs and **MobileGlues + Iris** in mind. ANGLE is an optional graphics-driver path in MobileGlues and should be tested on the target device.
 
-The project prioritizes stable rendering and practical frame rates before expensive effects. It is under active development; the current branch contains an initial terrain/water baseline, not a finished feature-complete shader pack.
+The project prioritizes stable rendering and practical frame rates before expensive effects. It is under active development; the current branch contains an initial terrain/water baseline plus a low-cost water tint control, not a finished feature-complete shader pack.
 
 ## Current target
 
@@ -15,7 +15,8 @@ The project prioritizes stable rendering and practical frame rates before expens
 
 - Conservative terrain vertex/fragment pass
 - Conservative water pass without reflections or wave displacement
-- One low-cost terrain contrast option
+- Low-cost terrain contrast slider
+- Configurable, subtle cool water tint slider (no extra texture samples or render targets)
 - Conditional MobileGlues precision declarations
 
 ## Planned features
@@ -31,7 +32,7 @@ See [PLAN.txt](PLAN.txt) for the feature list and [docs/DEVELOPMENT.md](docs/DEV
 
 ## Testing status
 
-The project has **not yet been validated in-game** on the target Minecraft/Iris/MobileGlues combination. A successful shader compile and correct rendering must be verified on a real device before features are considered complete.
+The current shader has been loaded successfully in an initial user test without reported errors. The water tint's visual appearance, option-menu integration, performance, and behavior across ANGLE settings still need to be verified in-game on the target setup.
 
 The original development test environment was a Snapdragon 778G / Adreno 642L device running Android 14, Zalith Launcher 2.7.2, and MobileGlues 2.0.0. This is historical project context, not a claim that the current code has been tested there.
 

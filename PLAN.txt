@@ -9,6 +9,7 @@ Foundation
 [x] Add conservative terrain vertex/fragment shader pair.
 [x] Add a conservative water pass without wave displacement or reflections.
 [x] Add a low-cost terrain contrast slider.
+[x] Add a low-cost configurable cool tint for water.
 [x] Document MobileGlues compatibility constraints and testing gates.
 [ ] Compile and test on the target device; verify terrain, foliage, entities, hand, and transparency.
 [ ] Confirm options appear correctly in the Iris shader settings UI.
@@ -43,6 +44,7 @@ Effects
     Type: Slider; keep vertex math simple.
 
 Water
+[x] Add a configurable low-cost cool tint that preserves sampled texture and alpha.
 [ ] Water Type: Enhanced / Realistic.
     Enhanced: performance-first water, with optional effects and vanilla-texture compatibility.
     Realistic: optional reflections and additional water effects, with clear performance trade-offs.
