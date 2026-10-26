@@ -1,6 +1,6 @@
 #version 120
 
-// FANGLE — alpha-tested depth pass for cutout textures such as leaves.
+// FANGLE — alpha-tested depth pass for leaves, grass, and cutout textures.
 #ifdef MG_MOBILEGLUES
 precision highp float;
 precision highp int;
@@ -8,12 +8,13 @@ precision highp int;
 
 uniform sampler2D gtexture;
 varying vec2 fangleShadowTexCoord;
+varying vec4 fangleShadowVertexColor;
 
 void main() {
-    vec4 texel = texture2D(gtexture, fangleShadowTexCoord);
+    vec4 texel = texture2D(gtexture, fangleShadowTexCoord) * fangleShadowVertexColor;
     if (texel.a < 0.1) {
         discard;
     }
-    // Depth is written by the shadow framebuffer; color output is not used.
+    // Iris writes depth to shadowtex automatically.
     gl_FragColor = vec4(1.0);
 }
