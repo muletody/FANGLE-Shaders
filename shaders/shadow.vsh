@@ -1,17 +1,16 @@
 #version 120
 
-// FANGLE — minimal shadow-map vertex pass.
+// FANGLE — lightweight shadow-map caster pass.
 #ifdef MG_MOBILEGLUES
 precision highp float;
 precision highp int;
 #endif
 
-uniform mat4 shadowModelView;
-uniform mat4 shadowProjection;
-
 varying vec2 fangleShadowTexCoord;
+varying vec4 fangleShadowVertexColor;
 
 void main() {
-    gl_Position = shadowProjection * shadowModelView * gl_ModelViewMatrix * gl_Vertex;
+    gl_Position = ftransform();
     fangleShadowTexCoord = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;
+    fangleShadowVertexColor = gl_Color;
 }
