@@ -7,12 +7,13 @@ Status legend: [x] added to repository; [ ] not implemented or not validated in-
 
 Foundation
 [x] Add conservative terrain vertex/fragment shader pair.
-[x] Add a conservative water pass without wave displacement or reflections.
+[x] Add a conservative water pass.
 [x] Add a low-cost terrain contrast slider.
 [x] Add a low-cost configurable cool tint for water.
+[x] Add a configurable, low-amplitude water wave slider.
 [x] Document MobileGlues compatibility constraints and testing gates.
 [ ] Compile and test on the target device; verify terrain, foliage, entities, hand, and transparency.
-[ ] Confirm options appear correctly in the Iris shader settings UI.
+[ ] Confirm all options appear correctly in the Iris shader settings UI.
 
 Shadows
 [ ] Shadow Distance
@@ -39,19 +40,18 @@ Effects
 [ ] Leaf Animation
     Target range: 0.00–1.00; initial default 0.05.
     Type: Slider; avoid displacing non-foliage geometry.
-[ ] Wave Animation
-    Target range: 0.00–1.00; initial default 0.05.
-    Type: Slider; keep vertex math simple.
 
 Water
 [x] Add a configurable low-cost cool tint that preserves sampled texture and alpha.
+[x] Add a subtle configurable vertical wave displacement with a zero-value off setting.
 [ ] Water Type: Enhanced / Realistic.
     Enhanced: performance-first water, with optional effects and vanilla-texture compatibility.
     Realistic: optional reflections and additional water effects, with clear performance trade-offs.
-[ ] Validate translucent sorting, alpha blending, and underwater rendering on MobileGlues + ANGLE.
+[ ] Validate translucent sorting, alpha blending, underwater rendering, wave seams, and FPS on MobileGlues + ANGLE.
 
 Validation gates
 [ ] Shader pack loads without shader/program errors.
 [ ] Terrain textures, lightmap, vertex colors, foliage, entities, hand, and translucent blocks render correctly.
+[ ] Confirm the water wave slider appears and works in Iris shader options.
 [ ] Test with ANGLE enabled and disabled where possible.
 [ ] Record device, GPU, Android, Minecraft, Iris, MobileGlues, and frame-rate observations.
