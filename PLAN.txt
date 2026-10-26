@@ -3,55 +3,31 @@ FANGLE — implementation plan
 Target: Minecraft Java Edition 26.2 + Iris + MobileGlues 2.x, optionally using ANGLE.
 Design goal: semi-realistic visuals with a mobile-first quality/performance balance.
 
-Status legend: [x] added to repository; [ ] not implemented or not validated in-game.
+Status legend: [x] implemented in the consolidated branch; [ ] not implemented or not yet validated in-game.
 
-Foundation
-[x] Add conservative terrain vertex/fragment shader pair.
-[x] Add a conservative water pass without wave displacement or reflections.
-[x] Add a low-cost terrain contrast slider.
-[x] Add a low-cost configurable cool tint for water.
-[x] Document MobileGlues compatibility constraints and testing gates.
-[ ] Compile and test on the target device; verify terrain, foliage, entities, hand, and transparency.
-[ ] Confirm options appear correctly in the Iris shader settings UI.
+Mobile baseline
+[x] Conservative terrain vertex/fragment shader pair.
+[x] Conservative translucent water pass.
+[x] Terrain contrast slider.
+[x] Saturation and warm/cool balance controls.
+[x] Configurable cool water tint.
+[x] Configurable low-amplitude water surface waves with an off value.
+[x] Document target compatibility and testing gates.
+[ ] Verify all shader options appear in Iris.
+[ ] Validate terrain, foliage, entities, hand, water transparency, chunk edges, and FPS on target device.
 
-Shadows
-[ ] Shadow Distance
-    Description: Adjust the rendering distance at which shadows begin to appear.
-    Target range: 0.16–0.64; tune after in-game testing.
-    Type: Slider
-[ ] Shadow Quality
-    Target values: 512, 1024, 2048, 3072, 4096.
-    Type: Slider; keep the default low for mobile performance.
-[ ] Shadow Blur
-    Values: Off, Low, Medium, High.
-    Type: Option; use inexpensive filtering by default.
-
-Lighting
-[ ] Hand-Held Lighting
-    Description: Approximate light from held torches and lanterns.
-    Values: On / Off.
-    Type: Toggle; implement only after confirming reliable uniforms and behavior.
-
-Effects
-[ ] Anti-Aliasing
-    Values: Off, FXAA, TAA.
-    Type: Option. Implement FXAA first; TAA requires temporal history and extra render passes.
-[ ] Leaf Animation
-    Target range: 0.00–1.00; initial default 0.05.
-    Type: Slider; avoid displacing non-foliage geometry.
-[ ] Wave Animation
-    Target range: 0.00–1.00; initial default 0.05.
-    Type: Slider; keep vertex math simple.
-
-Water
-[x] Add a configurable low-cost cool tint that preserves sampled texture and alpha.
-[ ] Water Type: Enhanced / Realistic.
-    Enhanced: performance-first water, with optional effects and vanilla-texture compatibility.
-    Realistic: optional reflections and additional water effects, with clear performance trade-offs.
-[ ] Validate translucent sorting, alpha blending, and underwater rendering on MobileGlues + ANGLE.
+Next features
+[ ] Dynamic shadow mapping with a low default resolution and configurable quality/distance.
+[ ] Low-cost shadow filtering.
+[ ] Leaf animation, only after a reliable foliage-only identification path is established.
+[ ] Held torch/lantern lighting, only after required uniforms are confirmed.
+[ ] FXAA before considering TAA; TAA needs temporal history and extra passes.
+[ ] Enhanced/Realistic water modes; reflections should remain optional due to mobile cost.
 
 Validation gates
 [ ] Shader pack loads without shader/program errors.
-[ ] Terrain textures, lightmap, vertex colors, foliage, entities, hand, and translucent blocks render correctly.
+[ ] Confirm terrain textures, lightmap, vertex colors, foliage, entities, hand, and translucent blocks render correctly.
+[ ] Confirm water wave slider appears and 0.00 disables motion.
+[ ] Check water surface motion, side faces, chunk borders, and alpha blending.
 [ ] Test with ANGLE enabled and disabled where possible.
 [ ] Record device, GPU, Android, Minecraft, Iris, MobileGlues, and frame-rate observations.
