@@ -7,16 +7,14 @@ precision highp float;
 precision highp int;
 #endif
 
+#include "/lib/settings.glsl"
+
 uniform sampler2D gtexture;
 uniform sampler2D lightmap;
 
 varying vec2 fangleTexCoord;
 varying vec2 fangleLightCoord;
 varying vec4 fangleVertexColor;
-
-#define FANGLE_WATER_TINT 0.08 // [0.00 0.02 0.04 0.06 0.08 0.10 0.12 0.16 0.20]
-#define FANGLE_SATURATION 1.06 // [0.90 0.95 1.00 1.05 1.10 1.15 1.20]
-#define FANGLE_WARMTH 0.00 // [-0.04 -0.02 0.00 0.02 0.04]
 
 void main() {
     vec4 albedo = texture2D(gtexture, fangleTexCoord) * fangleVertexColor;
