@@ -14,12 +14,16 @@ varying vec4 fangleVertexColor;
 
 // Tiny vertical displacement; set to 0.00 to disable wave animation.
 // The spatial frequency repeats every 16 block units to reduce chunk-edge seams.
+// Only upward-facing vertices move, avoiding obvious distortion of vertical water sides.
 #define FANGLE_WAVE_STRENGTH 0.005 // [0.00 0.005 0.01 0.015 0.02]
 
 void main() {
     vec4 waterVertex = gl_Vertex;
-    float wavePhase = (gl_Vertex.x + gl_Vertex.z) * 0.3926991 + frameTimeCounter * 1.2;
-    waterVertex.y += sin(wavePhase) * FANGLE_WAVE_STRENGTH;
+
+    if (gl_Normal.y > 0.5) {
+        float wavePhase = (gl_Vertex.x + gl_Vertex.z) * 0.3926991 + frameTimeCounter * 1.2;
+        waterVertex.y += sin(wavePhase) * FANGLE_WAVE_STRENGTH;
+    }
 
     gl_Position = gl_ModelViewProjectionMatrix * waterVertex;
     fangleTexCoord = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;
