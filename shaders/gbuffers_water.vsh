@@ -6,21 +6,28 @@ precision highp float;
 precision highp int;
 #endif
 
+#include "/lib/settings.glsl"
+
 uniform float frameTimeCounter;
+uniform mat4 gbufferModelViewInverse;
+uniform vec3 cameraPosition;
 
 varying vec2 fangleTexCoord;
 varying vec2 fangleLightCoord;
 varying vec4 fangleVertexColor;
-
-// Keep displacement tiny for mobile performance and stable transparency.
-#define FANGLE_WAVE_STRENGTH 0.005 // [0.00 0.005 0.01 0.015 0.02]
 
 void main() {
     vec4 waterVertex = gl_Vertex;
 
     // Animate upward-facing surface vertices only; 0.00 disables movement.
     if (gl_Normal.y > 0.5) {
-        float wavePhase = (gl_Vertex.x + gl_Vertex.z) * 0.3926991 + frameTimeCounter * 1.2;
+        // Use world-space position so the waves stay anchored to the world instead of
+        // sliding with the camera (gl_Vertex is camera-relative in Iris).
+        vec3 worldPos = (gbufferModelViewInverse * (gl_ModelViewMatrix * gl_Vertex)).xyz + cameraPosition;
+
+        // The wavelength is 16 blocks (2*pi / 0.3926991), so wrapping the coordinate keeps
+        // the phase seamless and avoids float precision loss far from the origin.
+        float wavePhase = mod(worldPos.x + worldPos.z, 16.0) * 0.3926991 + frameTimeCounter * 1.2;
         waterVertex.y += sin(wavePhase) * FANGLE_WAVE_STRENGTH;
     }
 
