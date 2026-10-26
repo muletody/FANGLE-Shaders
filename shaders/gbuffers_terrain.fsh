@@ -1,11 +1,6 @@
 #version 120
 
 // FANGLE — mobile-first terrain fragment pass with dynamic shadows.
-#ifdef MG_MOBILEGLUES
-precision highp float;
-precision highp int;
-#endif
-
 #include "/lib/settings.glsl"
 
 uniform sampler2D gtexture;

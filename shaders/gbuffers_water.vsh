@@ -1,11 +1,6 @@
 #version 120
 
 // FANGLE — water vertex stage with optional low-amplitude waves.
-#ifdef MG_MOBILEGLUES
-precision highp float;
-precision highp int;
-#endif
-
 #include "/lib/settings.glsl"
 
 uniform float frameTimeCounter;

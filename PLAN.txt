@@ -1,6 +1,6 @@
 FANGLE — implementation plan
 
-Target: Minecraft Java Edition 26.2 + Iris + MobileGlues 2.x, optionally using ANGLE.
+Target: Minecraft Java Edition 26.2 + Iris + MobileGlues 2.x with the native GLES driver (no ANGLE).
 Design goal: semi-realistic visuals with a mobile-first quality/performance balance.
 
 Status legend: [x] implemented in the branch; [ ] not yet validated in-game or not implemented.
@@ -33,5 +33,5 @@ Validation gates
 [ ] Confirm shadow-map options appear and change behavior.
 [ ] Check shadows at multiple camera angles and sun positions.
 [ ] Compare FPS with shadows enabled and disabled.
-[ ] Test with ANGLE enabled and disabled where possible.
+[ ] Check entities and the held item with ANGLE off (Adreno native GLES driver).
 [ ] Record device, GPU, Android, Minecraft, Iris, MobileGlues, and frame-rate observations.

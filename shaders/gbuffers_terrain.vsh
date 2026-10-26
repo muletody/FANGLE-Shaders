@@ -1,11 +1,6 @@
 #version 120
 
 // FANGLE — terrain vertex stage with shadow-space coordinates.
-#ifdef MG_MOBILEGLUES
-precision highp float;
-precision highp int;
-#endif
-
 uniform mat4 gbufferModelViewInverse;
 uniform mat4 shadowModelView;
 uniform mat4 shadowProjection;

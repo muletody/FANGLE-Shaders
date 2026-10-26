@@ -1,11 +1,6 @@
 #version 120
 
 // FANGLE — alpha-tested depth pass for leaves, grass, and cutout textures.
-#ifdef MG_MOBILEGLUES
-precision highp float;
-precision highp int;
-#endif
-
 uniform sampler2D gtexture;
 varying vec2 fangleShadowTexCoord;
 varying vec4 fangleShadowVertexColor;

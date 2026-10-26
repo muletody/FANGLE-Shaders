@@ -4,16 +4,21 @@
 
 - Minecraft Java Edition 26.2 (test target; verify the exact Iris build in use)
 - Iris shader loader
-- MobileGlues 2.x, optionally using ANGLE
+- MobileGlues 2.x with the native GLES driver (without ANGLE)
+- Primary test GPU: Adreno (record the exact model with each test)
 - OpenGL ES 3.x-class hardware
 
 ## Compatibility rules
 
 1. Prefer simple GLSL and avoid desktop-only extensions.
-2. Keep MobileGlues precision declarations conditional on `MG_MOBILEGLUES`.
+2. Do not add `precision` declarations. They are not valid in `#version 120`, and it is not confirmed that `MG_MOBILEGLUES` is defined. Leave precision handling to MobileGlues.
 3. Keep shadow-map resolution modest by default and avoid unnecessary render targets.
 4. Put expensive effects behind options and profile them on the target device.
 5. Treat successful loading, visual correctness, translucent rendering, and frame time as separate test gates.
+
+## ANGLE
+
+FANGLE is developed and tested without ANGLE, which worked poorly on the target device. The MobileGlues v1.2.6 release notes say its default policy enables ANGLE on Adreno GPUs (except the Adreno 740); this may differ in 2.x, so make sure ANGLE is explicitly turned off in the MobileGlues settings when testing. Without ANGLE the shaders go through the device's native GLES driver, so results can vary by GPU model and driver version.
 
 ## Shadow implementation
 
@@ -34,4 +39,4 @@ Option defaults for contrast, saturation, warmth, water tint, wave strength, and
 5. Check that water no longer casts a solid shadow and that waves stay fixed in the world while walking.
 6. Check caves and torch-lit areas for double darkening, and tune the `skyMask` thresholds if needed.
 7. Compare FPS at 512, 1024, and 2048 shadow-map resolutions if the controls are available.
-8. Test with ANGLE enabled and disabled where possible and record logs plus FPS.
+8. Check entities and the held item, which the MobileGlues v1.2.6 release notes tie to Adreno native-driver problems, and record the Iris and MobileGlues logs plus FPS.

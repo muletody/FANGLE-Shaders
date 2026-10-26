@@ -2,11 +2,6 @@
 
 // FANGLE — conservative translucent water pass.
 // No extra texture samples or render targets are used.
-#ifdef MG_MOBILEGLUES
-precision highp float;
-precision highp int;
-#endif
-
 #include "/lib/settings.glsl"
 
 uniform sampler2D gtexture;

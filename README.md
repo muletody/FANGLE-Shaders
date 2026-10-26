@@ -1,12 +1,13 @@
 # FANGLE Shaders
 
-**FANGLE (First-ANGLE)** is a semi-realistic Minecraft Java Edition shader pack designed around a balance of visual quality and performance on mobile GPUs, especially **Iris + MobileGlues 2.x**, optionally using ANGLE.
+**FANGLE (First-ANGLE)** is a semi-realistic Minecraft Java Edition shader pack designed around a balance of visual quality and performance on mobile GPUs, especially **Iris + MobileGlues 2.x** with the native GLES driver (ANGLE is not used).
 
 ## Target
 
 - Minecraft Java Edition **26.2** (target; verify exact Iris and MobileGlues versions)
 - Iris shader loader
-- MobileGlues 2.x, optionally using ANGLE
+- MobileGlues 2.x with the native GLES driver (without ANGLE)
+- Primary test GPU: Adreno
 - OpenGL ES 3.x-class mobile hardware
 
 ## Included features
@@ -32,7 +33,7 @@
 
 ## Compatibility and testing status
 
-This is an initial implementation, not a verified release. The shadow pass uses Iris shader-pack conventions and requires testing with the exact Iris + MobileGlues version and ANGLE configuration. Verify that the pack compiles, terrain shadows line up correctly, leaves retain cutout holes, and the frame rate remains acceptable. The current shadow sampling is applied in the terrain fragment shader; entities, translucent objects, and some special render passes are not yet guaranteed to receive shadows.
+This is an initial implementation, not a verified release. The shadow pass uses Iris shader-pack conventions and requires testing with the exact Iris + MobileGlues version on the target GPU (Adreno, native GLES driver). Verify that the pack compiles, terrain shadows line up correctly, leaves retain cutout holes, and the frame rate remains acceptable. The current shadow sampling is applied in the terrain fragment shader; entities, translucent objects, and some special render passes are not yet guaranteed to receive shadows.
 
 See [PLAN.txt](PLAN.txt) and [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for the validation checklist.
 
