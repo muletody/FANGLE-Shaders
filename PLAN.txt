@@ -1,0 +1,58 @@
+Shadows
+
+[Shadow Distance]
+
+Description: Adjusts the rendering distance at which shadows begin to appear.
+Values: Minimum Distance = 0.16 (default distance of 0.16) up to 0.64 (or higher if needed).
+Type: Slider
+
+[Shadow Quality]
+
+Description: Adjusts the quality of shadows.
+Values: 512, 1024, 2048, 3072, 4096
+Type: Slider
+
+[Shadow Blur]
+
+Description: Adjusts how shadows appear; low values make shadows very sharp
+Values: OFF, Low, Medium, High
+Type: Toggle
+
+Lighting
+
+[Hand-Held Lighting]
+
+Description: Enables or disables lighting when picking up or holding torches and lanterns
+Values: True or False
+Type: Toggle
+
+Effects
+
+[Anti-Aliasing]
+
+Description: Anti-aliasing that improves image quality
+Values: OFF, TAA, FXAA
+Type: Toggle
+
+[Leaf Animation]
+
+Description: Adjusts the animation speed of tree leaves
+Values: 0.00 - 1.00 (0.05 Default)
+Type: Slider
+
+[Wave Animation]
+
+Description: Adjusts the speed of the water wave animation
+Values: 0.00 - 1.00 (0.05 Default)
+Type: Slider
+
+Water 
+
+[Water Type]
+
+Description: Changes the appearance of the water
+Values: Enhanced, Realistic
+Type: Toggle
+
+Enhanced = slightly simpler water, still focused on performance (you can enable reflections and effects; option to use the game’s vanilla water texture)
+Realistic = realistic water with adjustable reflections and effects.
