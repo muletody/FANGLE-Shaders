@@ -3,31 +3,35 @@ FANGLE — implementation plan
 Target: Minecraft Java Edition 26.2 + Iris + MobileGlues 2.x, optionally using ANGLE.
 Design goal: semi-realistic visuals with a mobile-first quality/performance balance.
 
-Status legend: [x] implemented in the consolidated branch; [ ] not implemented or not yet validated in-game.
+Status legend: [x] implemented in the branch; [ ] not yet validated in-game or not implemented.
 
 Mobile baseline
-[x] Conservative terrain vertex/fragment shader pair.
-[x] Conservative translucent water pass.
-[x] Terrain contrast slider.
-[x] Saturation and warm/cool balance controls.
-[x] Configurable cool water tint.
-[x] Configurable low-amplitude water surface waves with an off value.
-[x] Document target compatibility and testing gates.
-[ ] Verify all shader options appear in Iris.
-[ ] Validate terrain, foliage, entities, hand, water transparency, chunk edges, and FPS on target device.
+[x] Terrain color controls: contrast, saturation, warmth.
+[x] Configurable water tint and low-amplitude water waves.
+[x] Initial Iris shadow pass and terrain shadow-map sampling.
+[x] Alpha-tested shadow casting for cutout textures.
+[x] Configurable shadow strength, map resolution, and distance.
+[ ] Verify all options appear correctly in Iris.
+[ ] Validate shader compilation and shadow projection on target device.
+[ ] Check leaves, terrain edges, day/night transitions, water, entities, and FPS.
 
-Next features
-[ ] Dynamic shadow mapping with a low default resolution and configurable quality/distance.
-[ ] Low-cost shadow filtering.
-[ ] Leaf animation, only after a reliable foliage-only identification path is established.
+Shadow follow-up
+[ ] Test and tune depth bias to reduce acne and detached shadows.
+[ ] Verify shadow distance and map resolution controls on the exact Iris version.
+[ ] Add shadow reception to other opaque passes only after terrain pass is stable.
+[ ] Evaluate whether filtering cost is acceptable on mobile; retain a one-tap mode if needed.
+
+Other planned features
+[ ] Leaf animation, only after reliable foliage-only identification.
 [ ] Held torch/lantern lighting, only after required uniforms are confirmed.
-[ ] FXAA before considering TAA; TAA needs temporal history and extra passes.
-[ ] Enhanced/Realistic water modes; reflections should remain optional due to mobile cost.
+[ ] FXAA before considering TAA.
+[ ] Enhanced/Realistic water modes; reflections remain optional due to mobile cost.
 
 Validation gates
 [ ] Shader pack loads without shader/program errors.
-[ ] Confirm terrain textures, lightmap, vertex colors, foliage, entities, hand, and translucent blocks render correctly.
-[ ] Confirm water wave slider appears and 0.00 disables motion.
-[ ] Check water surface motion, side faces, chunk borders, and alpha blending.
+[ ] Terrain textures, lightmap, vertex colors, foliage, entities, hand, and translucent blocks render correctly.
+[ ] Confirm shadow-map options appear and change behavior.
+[ ] Check shadows at multiple camera angles and sun positions.
+[ ] Compare FPS with shadows enabled and disabled.
 [ ] Test with ANGLE enabled and disabled where possible.
 [ ] Record device, GPU, Android, Minecraft, Iris, MobileGlues, and frame-rate observations.
