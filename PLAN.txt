@@ -1,58 +1,55 @@
+FANGLE — implementation plan
+
+Target: Minecraft Java Edition 26.2 + Iris + MobileGlues 2.x, optionally using ANGLE.
+Design goal: semi-realistic visuals with a mobile-first quality/performance balance.
+
+Status legend: [x] added to repository; [ ] not implemented or not validated in-game.
+
+Foundation
+[x] Add conservative terrain vertex/fragment shader pair.
+[x] Add a conservative water pass without wave displacement or reflections.
+[x] Add a low-cost terrain contrast slider.
+[x] Document MobileGlues compatibility constraints and testing gates.
+[ ] Compile and test on the target device; verify terrain, foliage, entities, hand, and transparency.
+[ ] Confirm options appear correctly in the Iris shader settings UI.
+
 Shadows
-
-[Shadow Distance]
-
-Description: Adjusts the rendering distance at which shadows begin to appear.
-Values: Minimum Distance = 0.16 (default distance of 0.16) up to 0.64 (or higher if needed).
-Type: Slider
-
-[Shadow Quality]
-
-Description: Adjusts the quality of shadows.
-Values: 512, 1024, 2048, 3072, 4096
-Type: Slider
-
-[Shadow Blur]
-
-Description: Adjusts how shadows appear; low values make shadows very sharp
-Values: OFF, Low, Medium, High
-Type: Toggle
+[ ] Shadow Distance
+    Description: Adjust the rendering distance at which shadows begin to appear.
+    Target range: 0.16–0.64; tune after in-game testing.
+    Type: Slider
+[ ] Shadow Quality
+    Target values: 512, 1024, 2048, 3072, 4096.
+    Type: Slider; keep the default low for mobile performance.
+[ ] Shadow Blur
+    Values: Off, Low, Medium, High.
+    Type: Option; use inexpensive filtering by default.
 
 Lighting
-
-[Hand-Held Lighting]
-
-Description: Enables or disables lighting when picking up or holding torches and lanterns
-Values: True or False
-Type: Toggle
+[ ] Hand-Held Lighting
+    Description: Approximate light from held torches and lanterns.
+    Values: On / Off.
+    Type: Toggle; implement only after confirming reliable uniforms and behavior.
 
 Effects
+[ ] Anti-Aliasing
+    Values: Off, FXAA, TAA.
+    Type: Option. Implement FXAA first; TAA requires temporal history and extra render passes.
+[ ] Leaf Animation
+    Target range: 0.00–1.00; initial default 0.05.
+    Type: Slider; avoid displacing non-foliage geometry.
+[ ] Wave Animation
+    Target range: 0.00–1.00; initial default 0.05.
+    Type: Slider; keep vertex math simple.
 
-[Anti-Aliasing]
+Water
+[ ] Water Type: Enhanced / Realistic.
+    Enhanced: performance-first water, with optional effects and vanilla-texture compatibility.
+    Realistic: optional reflections and additional water effects, with clear performance trade-offs.
+[ ] Validate translucent sorting, alpha blending, and underwater rendering on MobileGlues + ANGLE.
 
-Description: Anti-aliasing that improves image quality
-Values: OFF, TAA, FXAA
-Type: Toggle
-
-[Leaf Animation]
-
-Description: Adjusts the animation speed of tree leaves
-Values: 0.00 - 1.00 (0.05 Default)
-Type: Slider
-
-[Wave Animation]
-
-Description: Adjusts the speed of the water wave animation
-Values: 0.00 - 1.00 (0.05 Default)
-Type: Slider
-
-Water 
-
-[Water Type]
-
-Description: Changes the appearance of the water
-Values: Enhanced, Realistic
-Type: Toggle
-
-Enhanced = slightly simpler water, still focused on performance (you can enable reflections and effects; option to use the game’s vanilla water texture)
-Realistic = realistic water with adjustable reflections and effects.
+Validation gates
+[ ] Shader pack loads without shader/program errors.
+[ ] Terrain textures, lightmap, vertex colors, foliage, entities, hand, and translucent blocks render correctly.
+[ ] Test with ANGLE enabled and disabled where possible.
+[ ] Record device, GPU, Android, Minecraft, Iris, MobileGlues, and frame-rate observations.
